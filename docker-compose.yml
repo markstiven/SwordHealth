@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  app:
+    build: .
+    container_name: sword-health
+    depends_on:
+      - db
+    ports:
+      - 23412:23412
+    environment:
+      - DB_HOST=db
+      - DB_USERNAME=root
+      - DB_PASSWORD=123456
+      - DB_DATABASE=sistema
+      - DB_PORT=3306
+      - WAIT_HOSTS=db:3306
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=sistema
+    ports:
+      - "3306:3306"

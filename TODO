@@ -1,0 +1,28 @@
+Requisitos
+Esta aplicação tem dois tipos de usuários (Gerente, Técnico).
+
+O técnico executa tarefas e só pode ver, criar ou atualizar suas próprias
+tarefas executadas.
+
+O gerente pode ver as tarefas de todos os técnicos, excluí-las e deve ser
+notificado quando algum técnico executa uma tarefa.
+
+Uma tarefa tem um resumo (max: 2500 caracteres) e uma data em que foi realizada, o
+resumo da tarefa pode conter informações pessoais.
+
+Notas:
+• Se você não tiver tempo suficiente para concluir o teste, deve priorizar
+recursos completos (com testes) sobre muitos recursos;
+• Avaliaremos a segurança, qualidade e legibilidade do seu código;
+Características:
+• Criar endpoint de API para salvar uma nova tarefa;
+• Criar endpoint de API para listar tarefas;
+• Notificar o gerente de cada tarefa realizada pelo técnico (esta notificação pode ser
+apenas um print dizendo “O técnico X executou a tarefa Y na data Z”);
+• Esta notificação não deve bloquear nenhuma solicitação http.
+Requisitos técnicos:
+• Utilizar banco de dados MySQL para persistência dos dados da aplicação;
+• Os recursos devem ter testes de unidade para garantir que estejam funcionando corretamente
+Bônus
+• Use um message broker para desacoplar a lógica de notificação do fluxo do aplicativo; (rabbitMQ)
+• Crie os arquivos de objeto do Kubernetes necessários para implantar este aplicativo.
