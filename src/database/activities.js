@@ -18,4 +18,6 @@ const Activity = connection.define('activities', {
 User.hasMany(Activity)
 Activity.belongsTo(User)
 
+// Activity.sync({force: true})
+
 module.exports = Activity
