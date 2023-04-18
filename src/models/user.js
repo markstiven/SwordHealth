@@ -23,6 +23,10 @@ const User = connection.define('users', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    role: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
 })
 
 module.exports = User

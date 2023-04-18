@@ -20,7 +20,7 @@ connection
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-app.use("/",userController)
 app.use("/",activityController)
+app.use("/",userController)
 
 app.listen(port, () => { console.log("Servidor iniciado com sucesso na porta: " + port)})

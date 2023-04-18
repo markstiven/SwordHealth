@@ -1,78 +1,68 @@
 const { Router } = require('express')
 const router = Router()
 const activityDB = require('../database/activityDB')
-const auth = require('./userController')
-router.get('/activities', async (req, res) => {
+const auth = require('../middleware/middleware')
+const validateActivity = require('./business/validateActivity')
+
+router.get('/activities/all', auth('manager'),async (req, res) => {
     try {
-        const dbReturn = await activityDB.getActivities()
-        
-        res.status(200).json({status: 'success', message: dbReturn, })
+        const activities = await validateActivity.allActivities()
+        res.status(200).json({status: 'success', message: activities, })
     } catch (error) {
         res.status(500).json({status: 'error', message: error, })
     }
 
 })
 
-router.post("/activities/save", async (req, res) =>{
+router.get('/activities', auth('technician'),async (req, res) => {
+    try {
+        const userID = req.loggedUser.id
+        const activities = await validateActivity.activitiesByID(userID)
+        res.status(200).json({status: 'success', message: activities })
+    } catch (error) {
+        res.status(500).json({status: 'error', message: error, })
+    }
+
+})
+
+router.post("/activities/save",auth('technician'), async (req, res) =>{
     try {
         const jsonBody = req.body != undefined ? req.body : ""
+        const userID = req.loggedUser.id
 
-        if(!jsonBody.title){
-            throw "Por favor preencher o campo titulo"
-        } else if(jsonBody.detail.length <= 20 || jsonBody.detail.length >= 2500){
-            throw "Por favor preencher o campo com o valor minimo de 20 caracteres e menor que 2500"
-        } else {
-            const dbReturn = await activityDB.save(jsonBody)
-            res.status(200).json({status: 'success', message: dbReturn, })
-        }
-
-
+        const activity = await validateActivity.activitySave(jsonBody, userID)
+        res.status(200).json({status: 'success', message: activity})
     } catch (error) {
         console.log(error)
         res.status(500).json({status: 'error', message: error, })
     }
 })
 
-router.post("/activities/delete", async (req, res) =>{
+router.post("/activities/delete",auth('manager'), async (req, res) =>{
     try {
         const activityID = req.body.id != undefined ? parseInt(req.body.id) : ""
+        const userID = req.loggedUser.id
 
-        if(!activityID){
-            throw "Por favor inserir um ID valido"
-        } else {
-            const dbReturn = await activityDB.delete(activityID)
+        const returnDelete = await validateActivity.activityDelete(activityID, userID)
 
-            if(dbReturn != 0){
-                res.status(200).json({status: 'success', message: `Atividade com o ID: ${activityID} deletado com sucesso.` })
-            } else {
-                throw `Não foi encontrado o ID:${activityID} no banco`
-            }
+        if(returnDelete == 'ok'){
+            res.status(200).json({status: 'success', message: `Atividade com o ID: ${activityID} deletado com sucesso.` })
         }
 
-    } catch (error) {
+        }catch (error) {
         res.status(500).json({status: 'error', message: error, })
     }
 })
 
-router.post("/activities/update", async (req, res) => {
+router.post("/activities/update", auth('technician'), async (req, res) => {
     try {
         const activityID = req.body.id != undefined ? parseInt(req.body.id) : ""
         const {title, detail} = req.body != undefined ? req.body : ""
+        const userID = req.loggedUser.id
 
-        if(!activityID){
-            throw "Por favor inserir um ID valido"
-        } else if(!title){
-            throw "Por favor preencher o campo titulo"
-        } else if(detail.length <= 20 || detail.length >= 2500){
-            throw "Por favor preencher o campo com o valor minimo de 20 caracteres e menor que 2500"
-        } else {
-            const dbReturn = await activityDB.setActivities(activityID, title, detail)
-
-            if(dbReturn != 0){
-                res.status(200).json({status: 'success', message: `Atividade com o ID: ${activityID} alterado com sucesso. ` })
-            } else {
-                throw `Não foi encontrado o ID:${activityID} no banco`
-            }
+        const returnUpdate = await validateActivity.activityUpdate(activityID, title, detail, userID)
+        if(returnUpdate == 'ok'){
+            res.status(200).json({status: 'success', message: `Atividade com o ID: ${activityID} alterado com sucesso. ` })
         }
     } catch (error) {
         res.status(500).json({status: 'error', message: error, })

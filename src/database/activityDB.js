@@ -1,5 +1,6 @@
 const Activity  = require('../models/activity')
 const User = require('../models/user')
+
 exports.getActivities = async function(){
     try {
         const dbReturn = await Activity.findAll({
@@ -13,13 +14,12 @@ exports.getActivities = async function(){
     }
 }
 
-exports.save = async function(jsonBody){
+exports.save = async function(jsonBody, userID){
     try {
-        const user_id = 1
         const dbReturn = await Activity.create({
             title: jsonBody.title,
             detail: jsonBody.detail,
-            userId: user_id
+            userId: userID
         })
         return dbReturn
 
@@ -43,18 +43,32 @@ exports.delete = async function(activityID){
     }
 }
 
-exports.setActivities = async function(activityID, title, detail){
+exports.setActivities = async function(activityID, title, detail, userdID){
     try {
-        const user_id = 1
         const dbReturn = await Activity.update({title, detail}, {
             where: {
                 id: activityID,
-                userId: user_id
+                userId: userdID
             }
         })
         return dbReturn
 
     } catch (error) {
         
+    }
+}
+
+exports.getActivityID = async function(userID){
+    try {
+        const dbReturn = await Activity.findAll({
+            where : {
+                userId: userID
+            }
+        })
+
+        return dbReturn
+
+    } catch (error) {
+        throw error
     }
 }

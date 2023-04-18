@@ -1,11 +1,12 @@
 {
-  "name": "teste",
+  "name": "swordhealth",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "jest"
   },
   "author": "Mark Stiven",
   "license": "ISC",
@@ -17,10 +18,14 @@
     "eslint": "^8.38.0",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
     "mysql2": "^3.2.2",
     "nodemon": "^2.0.22",
     "path": "^0.12.7",
     "sequelize": "^6.31.0",
     "sequelize-cli": "^6.6.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
   }
 }

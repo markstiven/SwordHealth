@@ -12,6 +12,7 @@ module.exports = {
         sexuality: 'Male',
         email: 'joao@swordhealth.com',
         password: bcrypt.hashSync('Joao@2023', salt),
+        role: 'technician', 
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -21,6 +22,7 @@ module.exports = {
         sexuality: 'Female',
         email: 'maria@swordhealth.com',
         password: bcrypt.hashSync('Maria@2023', salt),
+        role: 'manager',
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -28,8 +30,9 @@ module.exports = {
         name: 'Carlos',
         age: '45',
         sexuality: 'Male',
-        email: 'maria@swordhealth.com',
+        email: 'carlos@swordhealth.com',
         password: bcrypt.hashSync('Carlos@2023', salt),
+        role: 'technician',
         created_at: new Date(),
         updated_at: new Date()
       }
