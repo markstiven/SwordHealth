@@ -1,14 +1,14 @@
 require("dotenv").config()
+require('./src/models/activity')
+require('./src/models/user')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const connection = require('./src/database/database')
-const managerController = require('./src/controller/manager/managerController')
-const technicianController = require('./src/controller/activityController')
+const connection = require('./src/config/database')
+const userController = require('./src/controller/userController')
+const activityController = require('./src/controller/activityController')
 
 const port = process.env.API_PORT
-const Activity = require('./src/database/activities')
-const User = require('./src/database/user')
 
 connection
     .authenticate()
@@ -18,14 +18,9 @@ connection
         console.log(error)
     })
 
-app.set('view engine', 'ejs')
-app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-app.use("/",managerController)
-app.use("/",technicianController)
+app.use("/",userController)
+app.use("/",activityController)
 
-
-app.get("/", (req, res) => {res.render("index")})
-app.listen(port, () => { console.log("Servidor iniciado com sucesso na porta: " + port)
-})
+app.listen(port, () => { console.log("Servidor iniciado com sucesso na porta: " + port)})

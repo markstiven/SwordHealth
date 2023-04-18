@@ -1,11 +1,8 @@
 const Sequelize = require("sequelize")
-const connection = require("./database")
+const connection = require("../config/database")
 const User = require ('./user')
 const Activity = connection.define('activities', {
     title:{
-        type: Sequelize.STRING,
-        allowNull: false
-    },slug: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -17,7 +14,5 @@ const Activity = connection.define('activities', {
 
 User.hasMany(Activity)
 Activity.belongsTo(User)
-
-// Activity.sync({force: true})
 
 module.exports = Activity
