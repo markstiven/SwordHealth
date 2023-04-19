@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const router = Router()
-const activityDB = require('../database/activityDB')
 const auth = require('../middleware/middleware')
+const rabbitMQ = require('../rabbitMQ/rabbitmqServer')
 const validateActivity = require('./business/validateActivity')
 
 router.get('/activities/all', auth('manager'),async (req, res) => {
@@ -66,6 +66,18 @@ router.post("/activities/update", auth('technician'), async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({status: 'error', message: error, })
+    }
+})
+
+router.get("/activities/notify", auth('manager'), async (req, res) => {
+    try {
+        const msg = await rabbitMQ.notifyActivity()
+        console.log(msg)
+
+        res.status(200).json({status: 'success', message: msg })
+
+    } catch (error) {
+        res.status(400).json({status: 'error', message: error, })
     }
 })
 

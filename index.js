@@ -7,13 +7,14 @@ const bodyParser = require('body-parser')
 const connection = require('./src/config/database')
 const userController = require('./src/controller/userController')
 const activityController = require('./src/controller/activityController')
-
+const rabbitMqServer = require('./src/config/rabbitMQ')
 const port = process.env.API_PORT
+
 
 connection
     .authenticate()
     .then(() => {
-        console.log("Conexão feita com sucesso!")
+        console.log("Conexão Mysql feita com sucesso!")
     }).catch((error) => {
         console.log(error)
     })

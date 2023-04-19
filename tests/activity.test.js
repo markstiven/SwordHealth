@@ -1,4 +1,5 @@
-const validateActivity = require('../../src/controller/business/validateActivity')
+const validateActivity = require('../src/controller/business/validateActivity')
+const rabbitMQ = require('../src/rabbitMQ/rabbitmqServer')
 describe('Activities Validation', () => {
     it('Validate Get all activities', async () => {
         const activities = await validateActivity.allActivities()
@@ -40,7 +41,7 @@ describe('Activities Validation', () => {
     })
     it('Validate Delete activities by Manager', async () => {
         const userID = 2
-        const activityID = 21
+        const activityID = 3
 
         const activities = await validateActivity.activityDelete(activityID, userID)
 
@@ -60,6 +61,19 @@ describe('Activities Validation', () => {
         
 
         const activities = await validateActivity.activityUpdate(activityID, title, detail, userID)
+
+        let test
+        if(activities){
+            test = true
+        } else {
+            test = false
+        }
+        expect(test).toBe(true)
+    })
+
+    it('Validate Notify Manager', async () => {
+
+        const activities = await rabbitMQ.notifyActivity()
 
         let test
         if(activities){

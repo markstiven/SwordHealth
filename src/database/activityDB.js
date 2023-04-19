@@ -72,3 +72,20 @@ exports.getActivityID = async function(userID){
         throw error
     }
 }
+
+exports.getActivityUserById = async function(userID, activityID ){
+    try {
+        const dbReturn = await Activity.findOne({
+            where: {
+                userId: userID,
+                id: activityID
+            },
+            include: [{model: User}]
+        })
+
+        return dbReturn
+
+    } catch (error) {
+        throw error
+    }
+}

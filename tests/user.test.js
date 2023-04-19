@@ -1,4 +1,4 @@
-const user = require('../../src/controller/business/validateUser')
+const user = require('../src/controller/business/validateUser')
 
 describe('User Validation', () => {
     it('Validate Login Access', async function(){

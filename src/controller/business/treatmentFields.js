@@ -34,14 +34,14 @@ exports.managerFields = async function(dbReturn){
                 detail: activities.detail,
                 createdAt: moment(activities.createdAt).format('MM-DD-yyyy hh:mm:ss'),
                 updatedAt: moment(activities.updatedAt).format('MM-DD-yyyy hh:mm:ss'),
-                user: [{
+                user: {
                     name: activities.user.name,
                     age: activities.user.age,
                     sexuality: activities.user.sexuality,
                     email: activities.user.email,
                     createdAt: moment(activities.user.createdAt).format('MM-DD-yyyy hh:mm:ss'),
                     updatedAt: moment(activities.user.updatedAt).format('MM-DD-yyyy hh:mm:ss'),
-                }]
+                }
             }) 
         }
     } else {
@@ -51,14 +51,14 @@ exports.managerFields = async function(dbReturn){
             detail: dbReturn.detail,
             createdAt: moment(dbReturn.createdAt).format('MM-DD-yyyy hh:mm:ss'),
             updatedAt: moment(dbReturn.updatedAt).format('MM-DD-yyyy hh:mm:ss'),
-            user: [{
+            user: {
                 name: dbReturn.user.name,
                 age: dbReturn.user.age,
                 sexuality: dbReturn.user.sexuality,
                 email: dbReturn.user.email,
                 createdAt: moment(dbReturn.user.createdAt).format('MM-DD-yyyy hh:mm:ss'),
                 updatedAt: moment(dbReturn.user.updatedAt).format('MM-DD-yyyy hh:mm:ss'),
-            }]
+            }
         })  
     }
     return returnActivities

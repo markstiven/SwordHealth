@@ -1,5 +1,6 @@
 const activityDB = require('../../database/activityDB')
 const userDB = require('../../database/userDB')
+const rabbitMQ = require('../../rabbitMQ/rabbitmqServer')
 const treatmentFields = require('./treatmentFields')
 exports.allActivities = async function(){
     try {
@@ -41,7 +42,10 @@ exports.activitySave = async function(jsonBody, userID){
             const userIdValidate = await userDB.getUserByID(userID)
             if(userIdValidate.role == 'technician'){
                 const dbReturn = await activityDB.save(jsonBody, userID)
-                const returnActivities = await treatmentFields.formatFields(dbReturn)
+                const returnActivities = (await treatmentFields.formatFields(dbReturn)).shift()
+
+                const message = `O técnico ${userIdValidate.name} executou a tarefa ${returnActivities.title} na data ${returnActivities.createdAt}`
+                await rabbitMQ.createRowActivity(message)
                 return returnActivities
             } else {
                 throw "Usuario não encontrado"
@@ -87,6 +91,13 @@ exports.activityUpdate = async function(activityID, title, detail, userID){
         const dbReturn = await activityDB.setActivities(activityID, title, detail, userID)
 
         if(dbReturn != 0){
+
+            const returnDB = await activityDB.getActivityUserById(userID, activityID)
+            const returnActivities = (await treatmentFields.managerFields(returnDB)).shift()
+
+            const message = `O técnico ${returnActivities.user.name} alterou a tarefa ${returnActivities.title} na data ${returnActivities.updatedAt}`
+            await rabbitMQ.createRowActivity(message)
+            
             return 'ok'
         } else {
             throw `Não foi encontrado o ID:${activityID} no banco`

@@ -1,0 +1,18 @@
+#API
+API_PORT = 23412
+
+#TOKEN
+JWTSecret = "sjaiodjsaoidjoisadjoisajdoiasjdoijdoiajdoijdoisjdoiajoidjaoisdjoia"
+
+# MysqlDB
+DB_DIALECT = mysql
+DB_HOST = localhost
+DB_USERNAME = root
+DB_PASSWORD = swordhealth@2023
+DB_DATABASE = swordhealthDB
+
+# RabbitMQ
+RABBIT_HOST = localhost
+RABBIT_USERNAME = admin
+RABBIT_PASSWORD = swordhealth2023
+RABBIT_PORT = 5672
