@@ -29,16 +29,23 @@ Ações:
 
  docker-compose up -d
 
+# Instale as dependencias para popular o banco caso não possua yarn ou npm como global
+ npm i
  # Criar as tabelas no banco Mysql
- sequelize db:migrate
+ * no meu caso to usando o npm, mas caso esteja usando o yarn, basta substituir o npx
+
+ - npx sequelize db:migrate
 
  # Popular a tabela Users e Activities
- sequelize db:seed:all
+ * no meu caso to usando o npm, mas caso esteja usando o yarn, basta substituir o npx
+
+ - npx sequelize db:seed:all
 
  # Para realizar o teste unitário:
  npm test
 
- # Caso queira parar a imagem API, poderá rodar manualmente com o comando
+ # Caso queira parar a imagem API, poderá rodar manualmente com os comandos
+ * no meu caso to usando o npm, mas caso esteja usando o yarn, basta substituir o npm
  npm run dev
 
  ## Os pontos abaixo é para utilizar os ENDPOINTS
