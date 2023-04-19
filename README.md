@@ -31,7 +31,9 @@ Ações:
 
 # Instale as dependencias para popular o banco caso não possua yarn ou npm como global
  npm i
+ 
  # Criar as tabelas no banco Mysql
+ * antes de criar a tabela, parar o container da API
  * no meu caso to usando o npm, mas caso esteja usando o yarn, basta substituir o npx
 
  - npx sequelize db:migrate
@@ -44,8 +46,10 @@ Ações:
  # Para realizar o teste unitário:
  npm test
 
- # Caso queira parar a imagem API, poderá rodar manualmente com os comandos
+ # Rodar API manualmente com o comando
  * no meu caso to usando o npm, mas caso esteja usando o yarn, basta substituir o npm
+ ****Estou solicitando para testar a api via dev, pois ela está com bug no container no rabbitMQ(no container ele nao consegue identificar a rota, já no dev está rodando normalmente)
+
  npm run dev
 
  ## Os pontos abaixo é para utilizar os ENDPOINTS
