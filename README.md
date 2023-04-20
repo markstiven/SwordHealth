@@ -24,6 +24,8 @@ Ações:
 ## As intruções abaixo é para instalar as funcionalidades da API
 
  * Estou deixando o .envExample em anexo a api, por favor, renomeie para .env
+ * caso queira rodar a maquina no dev ao invés do docker, recomendo que substitua a variável RABBIT_HOST = rabbitmq para RABBIT_HOST = localhost
+ 
 # Instalar IMAGES
 * a partir que rodar o comando, a API já está programada para rodar automaticamente
 
@@ -44,12 +46,13 @@ Ações:
  - npx sequelize db:seed:all
 
  # Para realizar o teste unitário:
+ * caso queira rodar a maquina no dev ao invés do docker, recomendo que substitua a variável RABBIT_HOST = rabbitmq para RABBIT_HOST = localhost
  npm test
 
  # Rodar API manualmente com o comando
  * no meu caso to usando o npm, mas caso esteja usando o yarn, basta substituir o npm
- ****Estou solicitando para testar a api via dev, pois ela está com bug no container no rabbitMQ(no container ele nao consegue identificar a rota, já no dev está rodando normalmente)
-
+ * caso queira rodar a maquina no dev ao invés do docker, recomendo que substitua a variável RABBIT_HOST = rabbitmq para RABBIT_HOST = localhost
+ 
  npm run dev
 
  ## Os pontos abaixo é para utilizar os ENDPOINTS
