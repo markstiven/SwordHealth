@@ -12,7 +12,7 @@ DB_PASSWORD = swordhealth@2023
 DB_DATABASE = swordhealthDB
 
 # RabbitMQ
-RABBIT_HOST = localhost
+RABBIT_HOST = rabbitmq
 RABBIT_USERNAME = admin
 RABBIT_PASSWORD = swordhealth2023
 RABBIT_PORT = 5672

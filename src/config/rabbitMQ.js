@@ -5,7 +5,8 @@ async function connect() {
         const username = process.env.RABBIT_USERNAME
         const password = process.env.RABBIT_PASSWORD
         const port = process.env.RABBIT_PORT
-        const uri = `amqp://${username}:${password}@localhost:${port}/`
+        const host = process.env.RABBIT_HOST
+        const uri = `amqp://${username}:${password}@${host}:${port}/`
         const connection = await amqp.connect(uri)
 
         console.log("conexão RabbitMq estabelecida com sucesso")
