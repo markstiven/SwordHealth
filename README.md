@@ -120,6 +120,8 @@ url: http://localhost:23412/activities/all
 * O endPoint é utilizado apenas por 'manager'.
 * É utilizado para visualizar quem realizou ou alterou uma atividade.
 
+url: http://localhost:23412/activities/notify
+
 
 ## EndPoint - Post - Delete Activity
 * O endPoint é utilizado apenas por 'manager'.
