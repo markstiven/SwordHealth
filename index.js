@@ -8,17 +8,19 @@ const connection = require('./src/config/database')
 const userController = require('./src/controller/userController')
 const activityController = require('./src/controller/activityController')
 const rabbitMqServer = require('./src/config/rabbitMQ')
+const cors = require('cors')
 const port = process.env.API_PORT
 
 
 connection
-    .authenticate()
-    .then(() => {
-        console.log("Conexão Mysql feita com sucesso!")
-    }).catch((error) => {
-        console.log(error)
-    })
+.authenticate()
+.then(() => {
+    console.log("Conexão Mysql feita com sucesso!")
+}).catch((error) => {
+    console.log(error)
+})
 
+app.use(cors())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use("/",activityController)
